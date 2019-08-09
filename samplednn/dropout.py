@@ -2,13 +2,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as functional
 
-from samplednn.exportutils import ExportUtils
+from samplednn.utils import ExportUtils, PerfUtils
 
 import time
 import os
 
 
-class NNWithDropout(ExportUtils, nn.Module):
+class NNWithDropout(ExportUtils, PerfUtils, nn.Module):
 
     short_name = 'dropout'
 

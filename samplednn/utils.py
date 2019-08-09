@@ -121,3 +121,15 @@ class ExportUtils():
             print('-' * 15)
         
         print('Done!')
+
+class PerfUtils():
+
+    def accuracy(self, dataloader, num_samples):
+
+        predictions = self.predict_all(dataloader, num_samples)
+        predicted_labels = predictions.mean(1).argmax(1).cpu()
+        true_labels = dataloader.dataset.targets
+
+        correct = (predicted_labels == true_labels).sum()
+
+        return correct.float() / len(true_labels)

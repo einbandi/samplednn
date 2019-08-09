@@ -6,7 +6,7 @@ import pyro.infer
 import pyro.optim
 import pyro.distributions as dist
 
-from samplednn.exportutils import ExportUtils
+from samplednn.utils import ExportUtils, PerfUtils
 
 import time
 import os
@@ -73,7 +73,7 @@ class Encoder(nn.Module):
         return z_loc, z_scale
 
 
-class VAE(ExportUtils, nn.Module):
+class VAE(ExportUtils, PerfUtils, nn.Module):
 
     short_name = 'vae'
 

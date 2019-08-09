@@ -7,7 +7,7 @@ import pyro.infer
 import pyro.optim
 import pyro.distributions as dist
 
-from samplednn.exportutils import ExportUtils
+from samplednn.utils import ExportUtils, PerfUtils
 
 import time
 import os
@@ -35,7 +35,7 @@ class FullyConnected(nn.Module):
         return output
 
 
-class BayesianNetwork(ExportUtils, FullyConnected):
+class BayesianNetwork(ExportUtils, PerfUtils, FullyConnected):
 
     short_name = 'bayesian'
 

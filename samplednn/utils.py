@@ -2,6 +2,7 @@ import os
 import time
 
 import torch
+import numpy as np
 
 
 class ExportUtils():
@@ -76,7 +77,7 @@ class ExportUtils():
                 write('{}: {}'.format(key, train_info[key]))
 
 
-    def load_predict_export(self,  model_name, dataloader, num_samples, export_name):
+    def load_predict_export(self,  model_name, dataloader, num_samples, export_name, numpy=True):
 
         export_dir = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
@@ -110,14 +111,17 @@ class ExportUtils():
             ))
             pred_file = os.path.abspath(os.path.join(
                 pred_dir,
-                name
+                '{}{}'.format(name, '' if numpy else '.pt')
             ))
             print('Loading parameters from \'{}\''.format(param_file))
             self.load(param_file)
             # print('Predicting ...')
             predictions = self.predict_all(dataloader, num_samples)
             print('Saving predictions to \'{}\''.format(pred_file))
-            torch.save(predictions, pred_file)
+            if numpy:
+                np.save(pred_file, predictions.cpu().numpy())
+            else:
+                torch.save(predictions, pred_file)
             print('-' * 15)
         
         print('Done!')
